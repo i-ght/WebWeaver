@@ -19,7 +19,7 @@
                     "kind": "bin"
                 }
             },
-            "args": ["/home/zeitgeber/Code/Gallows Comedian/.content/poetry/"],
+            "args": ["/home/zeitgeber/Code/Gallows Comedian/.content/poetry/", "content/poetry/"],
             "cwd": "${workspaceFolder}"
         },
         {
