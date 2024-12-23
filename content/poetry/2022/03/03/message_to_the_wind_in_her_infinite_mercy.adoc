@@ -1,0 +1,26 @@
+:base-path: ../../../..
+
+include::{base-path}/head.adoc[]
+
+== Message to the Wind in Her Infinite Mercy
+
+=== Freestyle
+
+[%hardbreaks]
+Blow me, _WIND_.
+
+=== Blank Verse
+
+[%hardbreaks]
+O, blow me, Wind, with breath both bold and sly:
+Unleash thy gusts, let passions take their flight.
+With playful whispers, tease the air around,
+As nature's breath doth stir the heart's delight.
+Come, tempest fierce, or gentle zephyr's kiss,
+In every swirl, a promise to fulfill.
+Let not restraint confine thy wild embrace,
+For in thy playful dance, I find my thrill.
+O, blow me, Wind, and let the laughter rise,
+In jest and joy, our spirits intertwine.
+With every gust, a wink, a knowing smile,
+In nature's game, we revel for a while.

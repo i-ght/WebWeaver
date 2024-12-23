@@ -1,0 +1,31 @@
+:base-path: ../../../..
+
+include::{base-path}/head.adoc[]
+
+== You're Going Home
+
+=== Freestyle
+
+[%hardbreaks]
+When you die,
+I'm gonna dig you up and
+Take you to the crematorium.
+Then, I'm gonna rub your ashes all over my body
+And eat them up.
+You're going home.
+
+=== Blank Verse
+
+[%hardbreaks]
+When you depart this world, I shall not rest;
+I'll seek your form beneath the earth's embrace.
+With careful hands, I'll unearth your remains,
+And bear you forth to where the flames consume.
+In that fierce heat, your essence shall be freed--
+Transformed to ash--a whisper of your soul.
+I'll take those remnants, rub them on my skin:
+A final bond--a union forged in fire.
+And in that act, I'll taste the memory:
+Each grain a fragment of the life you lived.
+You'll journey with me--woven into flesh--
+Returning home: where love and loss entwine.

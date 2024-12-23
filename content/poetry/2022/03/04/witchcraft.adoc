@@ -1,0 +1,30 @@
+:base-path: ../../../..
+
+include::{base-path}/head.adoc[]
+
+== Witchcraft
+
+=== Freestyle
+
+[%hardbreaks]
+At least after you are burned to ashes
+You just blow around in the wind
+Don't have to feel much anymore
+Thank you Catholics
+for burning me and calling me a "Witch"
+You're all so holy now
+
+=== Blank Verse
+
+[%hardbreaks]
+At last, when turned to ashes, I shall find
+Myself adrift upon the restless wind,
+No longer bound by earthly pain or strife.
+O thank thee, Catholics, for thy cruel hand,
+For branding me a "Witch" in fervent zeal,
+As if thy piety could cleanse the sin.
+In flames, I rise, transcending mortal chains,
+While thou, so holy, cast thy stones with glee.
+Yet in this fate, I find a strange release,
+For ashes scattered dance in freedom's breath,
+And mock the judgments of thy "righteous" hearts.

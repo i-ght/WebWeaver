@@ -1,0 +1,9 @@
+:base-path: ../../../..
+
+include::{base-path}/head.adoc[]
+
+== Message for the Wannabe Billionaires Pharaohs
+
+[%hardbreaks]
+Message for all the wanna be billionaire pharaohs hoarding all the wealth of the world away in their ridiculous stupid dumb ass tech bro pyramids:
+FUCK YOU

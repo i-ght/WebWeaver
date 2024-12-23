@@ -1,0 +1,31 @@
+:base-path: ../../../..
+
+include::{base-path}/head.adoc[]
+
+== The Confident Candidate
+
+=== Freestyle
+
+[%hardbreaks]
+I hope this message finds you well.
+What an exciting job opportunity indeed!
+You are seeking are seeking a talented and driven IDP (Internal Developer Platform) Developer
+with expertise in OpenShift (OCP), Kubernetes, and developer experience tooling.
+Well, look no further! You have found your man!
+There's nobody better at that than me,
+I am the best there ever was is and will be for all eternity!
+When do I begin?
+
+=== Blank Verse
+
+[%hardbreaks]
+I hope this message finds you well today.
+An exciting job opportunity,
+Oh indeed!
+You seek a dope driven developer,
+With skills in tooling for the coder's craft.
+Look no further man; you have found your man!
+No one excels in this realm more than I!
+I am the best there ever was or is,
+And I shall be for all eternity!
+When shall I begin this journey with you?

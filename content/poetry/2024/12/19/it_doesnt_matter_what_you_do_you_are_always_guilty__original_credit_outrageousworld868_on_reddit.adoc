@@ -1,0 +1,78 @@
+:base-path: ../../../..
+
+include::{base-path}/head.adoc[]
+
+== It Doesn't Matter What You Do, You Are Always Guilty -- Original Credit: Outrageous_World_868 on Reddit
+
+=== Freestyle
+
+Original Source: https://www.reddit.com/r/recruitinghell/comments/1hhcrp0/it_doesnt_matter_what_you_do_it_is_always_your_bad/
+
+by Outrageous_World_868
+
+It doesn't matter what you do, it is always your bad.
+
+A person has no college degree? What did you expect, go to college!
+
+A person has a college degree? What did you expect, everybody has a college degree! You need to stand out!
+
+A person hasn't managed to find an internship? What did you expect, you have no experience!
+
+A person has managed to find an internship? What did you expect? This is not REAL work experience!
+
+A person has no mental or physical disabilities? How dare you struggle in the job market if you are healthy! Some people have it worse than you but still have good jobs! Think about Stephen Hawking!
+
+A person has mental or physical disabilities? What did you expect, it is because of your disability! Anyways, there are a lot of people with your condition who have good jobs, so it is all your fault.
+
+A person has a job but it is bad and low-paid? How dare you complain! Some people don't have ANY job!
+
+A person doesn't have a job? What did you expect? Not having a job is a red flag!
+
+A person is a service or blue collar worker? What did you expect, everyone can learn your job, so there is a lot of competition!
+
+A person is a white collar worker? What did you expect! EVERYBODY wants a comfy office job, you should have learned trades!
+
+A person is young? What did you expect, your brain is too immature!
+
+A person is old or middle-aged? What did you expect, your brain is not as sharp anymore!
+
+A person is experienced? What did you expect, you are overqualified for the market!
+
+A person has little or no experience? What di you expect, you have little/no experience!
+
+
+=== Blank Verse
+
+[%hardbreaks]
+In life’s vast stage, each soul must play a part,
+Yet every choice invites a harsh critique.
+A person lacks a degree, they hear,
+“Why did you not pursue the path of school?”
+But if a degree is earned, the voice shifts,
+“Yet many hold this paper; stand apart!”
+An internship is sought, yet doors are closed,
+“Experience is needed; how can you thrive?”
+If one finds a place, the judgment returns,
+“Not real work, you see; it lacks the weight.”
+A healthy body faces scornful eyes,
+“How dare you struggle when others bear more?”
+Yet those who bear a burden face the blame,
+“Your plight is yours alone; you must endure.”
+A job that pays too little brings disdain,
+“Complain not, for some seek with empty hands.”
+The jobless face a different kind of scorn,
+“A red flag raised; your worth is now in doubt.”
+A worker in the trades meets fierce rebuke,
+“Your labor’s common; many can do this.”
+In offices, the suits all gather round,
+“Why not pursue a trade? It’s more secure.”
+The young are told their minds are yet unformed,
+While age brings whispers of a fading spark.
+Experience can turn to heavy chains,
+“Overqualified; the market’s not for you.”
+And those with little skill are met with sneers,
+“Your lack of knowledge marks you as unfit.”
+Thus in this world, where judgments never cease,
+Each path we take is met with bitter words.
+We all are players in this endless game,
+Bound by the weight of others’ harsh demands.

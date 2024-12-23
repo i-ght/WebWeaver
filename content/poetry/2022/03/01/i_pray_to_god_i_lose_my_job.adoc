@@ -1,0 +1,36 @@
+:base-path: ../../../..
+
+include::{base-path}/head.adoc[]
+
+== I Pray To God I Lose My Job
+
+=== Freestyle
+
+[%hardbreaks]
+I want to lose my shit job.
+Go talk to the Lord Off The All The Land:
+"Greetings Your Lordship,
+I live to serve and bow down before you.
+I lost my shit job;
+I'm not giving you another fucking dime of your stupid fucking rent money.
+This is my house now,
+Call the fucking cops,
+Evict me.
+I love this building so much it'll always be mine now.
+
+=== Blank Verse
+
+[%hardbreaks]
+O, I beseech thee, Lord of all the land,
+With humble heart, I come before thy throne:
+"Greetings, Your Lordship, I, thy servant here,
+Once bowed in reverence, now stand defiant.
+I've lost my wretched toil, my burdens cast,
+And I shall pay thee not another dime
+Of that accursed rent, thy greedy claim.
+This dwelling, once thy realm, is mine alone;
+I stake my claim upon these hallowed walls.
+Call forth the constables, let them approach,
+And seek to cast me from this sacred space.
+For love of this abode, I stand resolved—
+It shall forever be my rightful home."

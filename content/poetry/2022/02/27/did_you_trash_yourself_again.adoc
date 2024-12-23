@@ -1,0 +1,33 @@
+:base-path: ../../../..
+
+include::{base-path}/head.adoc[]
+
+== Did You Trash Yourself Again?
+
+=== Freestyle
+
+[%hardbreaks]
+You usually trash yourself
+Then you found me
+You found the most in-genius way to try and trash me
+To take revenge on me for something I'm not guilty of
+How is that working out for you?
+Are you happy with the end results?
+Am I giving you the emotional reaction you craved so badly?
+That made you do what you did?
+Did you trash me successfully?
+Or did you only trash yourself?
+
+=== Blank Verse
+
+[%hardbreaks]
+You often turn your scorn upon yourself;
+Yet in your search, you stumbled upon me--
+A clever scheme to cast your blame on one
+Not guilty of the sins you claim I bear.
+How fares this venture? Are you satisfied
+With outcomes wrought from memories of mind?
+Do I provide the fervent spark you sought--
+The bitter taste of vengeance on your tongue?
+Have you, in truth, succeeded in your aim,
+Or merely dug a grave for your own soul?
