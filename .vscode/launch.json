@@ -19,7 +19,7 @@
                     "kind": "bin"
                 }
             },
-            "args": ["/home/zeitgeber/Code/Gallows Comedian/.content/poetry/", "poetry/"],
+            "args": ["/home/zeitgeber/Code/Call Me Ishmael/.content/entries"],
             "cwd": "${workspaceFolder}"
         },
         {

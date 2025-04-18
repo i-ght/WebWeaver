@@ -1,11 +1,13 @@
-use std::collections::{BTreeMap, HashMap};
+use std::collections::BTreeMap;
 use std::error::Error;
 use std::fs::{self, DirEntry};
 use std::path::{Component, Path, PathBuf};
 use std::{env, io};
 
-use chrono::{DateTime, Datelike, Local, NaiveDate, NaiveTime, Utc};
+use chrono::{DateTime, Datelike, NaiveDate, NaiveTime, Utc};
 use rss::{Category, Channel, ChannelBuilder, Image, Item, ItemBuilder};
+use regex::Regex;
+
 
 #[derive(Clone, Debug)]
 struct ContentMetaUnit {
@@ -26,7 +28,7 @@ struct Cfg {
     input_content_root_path: PathBuf,
     output_content_root_path: PathBuf,
     _author: Option<String>,
-    category: String,
+    categories: Vec<String>,
 }
 
 fn cfg() -> io::Result<Cfg> {
@@ -42,13 +44,18 @@ fn cfg() -> io::Result<Cfg> {
 
     let components: Vec<Component> = input_content_root_path.components().collect();
 
-    let (output_content_root_path, author, category) =
+    let (output_content_root_path, author, categories) =
         if let Some(content_index) = components.iter().position(|c| c.as_os_str() == ".content") {
             let after_content = &components[content_index + 1..];
 
             let author = after_content
                 .get(0)
-                .filter(|&c| c.as_os_str().to_str().expect("os str couldn't change to str.").starts_with('.'))
+                .filter(|&c| {
+                    c.as_os_str()
+                        .to_str()
+                        .expect("os str couldn't change to str.")
+                        .starts_with('.')
+                })
                 .map(|c| {
                     c.as_os_str()
                         .to_string_lossy()
@@ -63,7 +70,7 @@ fn cfg() -> io::Result<Cfg> {
                 .collect();
 
             let after_path = PathBuf::from_iter(after_content.iter().map(|c| c.as_os_str()));
-            (after_path, author, categories.join("/"))
+            (after_path, author, categories)
         } else {
             return Err(io::Error::new(
             io::ErrorKind::InvalidInput,
@@ -75,7 +82,7 @@ fn cfg() -> io::Result<Cfg> {
         input_content_root_path,
         output_content_root_path,
         _author: author,
-        category,
+        categories,
     };
 
     let input_exists = cfg.input_content_root_path.exists();
@@ -190,10 +197,7 @@ fn content_file_metadata(
         .collect();
 
     let (year, month, day) = (date.year_ce().1, date.month(), date.day());
-    let year_month_day = format!("{}/{:02}/{:02}", year, month, day);
-
-    let categories_and_date_stamped_content_path =
-        format!("{}/{}", content_categories_path, year_month_day);
+    let path_from_index = format!("{}/{:02}/{:02}", year, month, day);
 
     let filesystem_friendly_name = friendly_filename(name);
 
@@ -203,7 +207,7 @@ fn content_file_metadata(
         filesystem_friendly_name,
         file_ext: file_ext.to_string(),
         categories,
-        path: categories_and_date_stamped_content_path,
+        path: path_from_index,
     };
 
     Ok(unit)
@@ -218,9 +222,7 @@ fn files_map(
     for path_to_content_file in content_file_paths {
         let meta = content_file_metadata(&path_to_content_file, content_output_root_path)?;
 
-        if let None = content_files_meta_data 
-            .insert(path_to_content_file, meta)
-        {
+        if let Some(_) = content_files_meta_data.insert(path_to_content_file, meta) {
             return Err(Box::new(io::Error::new(
                 io::ErrorKind::Other,
                 "unexpected duplicate content file.",
@@ -264,18 +266,20 @@ fn friendly_filename(name: &str) -> String {
     result.iter().collect()
 }
 
-fn content_unit_contents(title: &str, content_file_path: &Path) -> io::Result<String> {
+fn content_unit_contents(title: &str, date: NaiveDate, content_file_path: &Path) -> io::Result<String> {
     let contents = fs::read_to_string(content_file_path)?;
     let contents = format!(
         ":base-path: ../../../..
 
 include::{{base-path}}/head.adoc[]
 
-== {}
+== {} — {}
 
 {}",
-        title, contents
+        date, title, contents
     );
+
+    let contents = transform_xrefs(&contents[..]);
 
     Ok(contents)
 }
@@ -297,49 +301,65 @@ fn title_case(input: &str) -> String {
 
 fn index_contents(
     category: &str,
-    content_files_meta_data: BTreeMap<u32, Vec<ContentMetaUnit>>,
+    content_files_meta_data: &BTreeMap<u32, Vec<ContentMetaUnit>>,
 ) -> String {
-    let mut index = String::with_capacity(8192);
-
     let category = title_case(category);
-    index.push_str(&format!("== \u{1F4D3} {} Index\n", category));
-    index.push_str("\n");
 
-    for (year, content_meta_units) in content_files_meta_data.iter().rev() {
-        index.push_str(&format!("=== {}\n", year));
-        index.push_str("\n");
+    let mut contents = vec![
+        String::from(":base-path: .."),
+        String::from(""),
+        String::from("include::{base-path}/head.adoc[]"),
+        String::from(""),
+        format!("== \u{1F4D3} Index of {}", category),
+        String::from(""),
+        String::from(
+            "[%autowidth]
+|===
+| Date | Name",
+        ),
+    ];
 
+    for (_year, content_meta_units) in content_files_meta_data.iter().rev() {
         for unit in content_meta_units {
-            index.push_str(&format!(
-                "==== xref:{}/{}.{}[{}] — {}\n",
-                unit.path,
-                unit.filesystem_friendly_name,
-                unit.file_ext,
-                unit.name,
-                unit.date.format("%B %d, %Y")
+            contents.push(format!(
+                "| {} | xref:{}/{}.{}[{}]",
+                unit.date, unit.path, unit.filesystem_friendly_name, unit.file_ext, unit.name,
             ));
-            index.push_str("\n");
         }
     }
 
+    contents.push(String::from("|==="));
+
+    let index = contents.join("\n");
     index
 }
 
+fn construct_index(
+    category: &str,
+    content_files_meta_data: &BTreeMap<u32, Vec<ContentMetaUnit>>,
+) -> io::Result<()> {
+    let index = index_contents(category, content_files_meta_data);
+    let path = format!("content/{}/index.adoc", category);
+    fs::write(path, index)
+}
+
 fn construct_content_filesystem(
-    content_files_meta_data: &BTreeMap<PathBuf, ContentMetaUnit>,
+    category: &str,
+    content_files_meta_data: BTreeMap<PathBuf, ContentMetaUnit>,
 ) -> io::Result<Vec<ContentUnit>> {
     let mut content: Vec<ContentUnit> = Vec::with_capacity(content_files_meta_data.len());
 
-    for (input_content_file_path, meta) in content_files_meta_data {
+    for (input_content_file_path, meta) in &content_files_meta_data {
         let content_file_output_path = format!(
-            "{}/{}.{}",
-            meta.path, meta.filesystem_friendly_name, meta.file_ext
+            "{}/{}/{}.{}",
+            category, meta.path, meta.filesystem_friendly_name, meta.file_ext
         );
-        let contents = content_unit_contents(&meta.name, input_content_file_path)?;
-        let dir = format!("content/{}", meta.path);
+        let contents = content_unit_contents(&meta.name, meta.date, &input_content_file_path)?;
         let path = format!("content/{}", content_file_output_path);
 
+        let dir = format!("content/{}/{}/", category, meta.path);
         fs::create_dir_all(dir)?;
+
         fs::write(path, &contents)?;
 
         content.push(ContentUnit {
@@ -347,6 +367,10 @@ fn construct_content_filesystem(
             contents,
         });
     }
+
+    let entries = entries_map(content_files_meta_data);
+    construct_index(category, &entries)?;
+
     Ok(content)
 }
 
@@ -375,10 +399,7 @@ fn rss_channel(
             unit.contents,
         );
 
-        let pub_date = date
-            .and_time(NaiveTime::default())
-            .and_local_timezone(Local)
-            .unwrap();
+        let pub_date = date.and_time(NaiveTime::default()).and_utc();
 
         let item = ItemBuilder::default()
             .title(name.clone())
@@ -409,6 +430,29 @@ fn rss_channel(
     channel
 }
 
+
+fn transform_xrefs(data: &str) -> String {
+    lazy_static::lazy_static! {
+        static ref RE: Regex = Regex::new(r"xref:(.*?)\[(.*?)\]").unwrap();
+    }
+
+    RE.replace_all(data, |caps: &regex::Captures| {
+        let path = Path::new(&caps[1]);
+        let parent_dir = path.parent().unwrap().to_string_lossy().to_string();
+        let link_text = &caps[2];
+
+        let name = path.file_stem().unwrap().to_string_lossy().to_string();
+        let split: Vec<&str> = name.splitn(2, '_').collect();
+        let date = &split[0].replace('-', "/");
+        let name = friendly_filename(&split[1]);
+        let ext = path.extension().unwrap().to_string_lossy().to_string();
+
+        let correction = format!("xref:../../../{}/{}/{}.{}[{}]", parent_dir, date, name, ext, link_text);
+        dbg!(&correction);
+        correction
+    }).into_owned()
+}
+
 fn _galginkomiker() {}
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -416,24 +460,20 @@ fn main() -> Result<(), Box<dyn Error>> {
     let content_file_paths = content_file_pathbufs(&cfg.input_content_root_path)?;
     let content_files_meta_data: BTreeMap<PathBuf, ContentMetaUnit> =
         files_map(content_file_paths, &cfg.output_content_root_path)?;
-    let content: Vec<ContentUnit> = construct_content_filesystem(&content_files_meta_data)?;
+    let content: Vec<ContentUnit> =
+        construct_content_filesystem(&cfg.categories.join("/"), content_files_meta_data)?;
 
-    let _rss_channel = rss_channel(
+/*     let _rss_channel = rss_channel(
         "/",
         "galgenkomiker",
-        "galkenkomiker",
+        "galgenkomiker",
         Some(String::from("en-us")),
         None,
         None,
         &vec![],
         None,
         content,
-    );
-
-    let entries = entries_map(content_files_meta_data);
-    let index_contents = index_contents(&cfg.category, entries);
-
-    println!("{}", index_contents);
+    ); */
 
     Ok(())
 }
